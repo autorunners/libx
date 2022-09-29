@@ -1,0 +1,11 @@
+
+
+protocol: tcp
+host: 127.0.0.1
+port: 1883
+client_id: client_id_
+user:
+pass:
+keep_alive: 60
+topics:
+  - topic/sub/#
