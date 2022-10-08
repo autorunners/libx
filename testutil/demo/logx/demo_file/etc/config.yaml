@@ -1,0 +1,7 @@
+
+logger:
+    prefix: Demo
+    level: debug
+    type: file
+    path: /tmp/abc.log
+
