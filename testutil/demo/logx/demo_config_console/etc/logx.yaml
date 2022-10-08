@@ -1,0 +1,4 @@
+prefix: "[Demo Default]"
+level: info
+type: console
+path: logs

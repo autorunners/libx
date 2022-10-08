@@ -1,0 +1,9 @@
+
+prefix: "[Demo File]"
+level: debug
+type: file
+path: /tmp/abcd.log
+
+
+
+

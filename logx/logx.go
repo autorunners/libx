@@ -2,6 +2,9 @@ package logx
 
 import (
 	"fmt"
+	"gopkg.in/yaml.v2"
+	"io/ioutil"
+	"log"
 )
 
 type Priority int
@@ -37,7 +40,20 @@ var (
 )
 
 func init() {
-	initLogx(defaultConfig)
+	content, err := ioutil.ReadFile("./etc/logx.yaml")
+	if err != nil {
+		initLogx(defaultConfig)
+		return
+	}
+	var c Config
+	err = yaml.Unmarshal(content, &c)
+	log.Println(c)
+	if err != nil {
+		log.Println(err)
+		initLogx(defaultConfig)
+		return
+	}
+	initLogx(c)
 }
 
 // Logx is a logx interface
@@ -142,6 +158,10 @@ func (d logx) log(level Priority, v ...interface{}) {
 }
 
 func (d logx) logf(level Priority, format string, v ...interface{}) {
+	if level > d.level {
+		return
+	}
 	msg := fmt.Sprintf(format, v...)
-	d.log(level, msg)
+	d.logger.Print(msg)
 }
+

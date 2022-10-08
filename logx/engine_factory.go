@@ -30,7 +30,7 @@ func (e engineFactory) Gen(config Config) Engine {
 	if got {
 		return factory.Gen(config)
 	}
-	panic(fmt.Sprint("not support engine type", config.Type))
+	panic(fmt.Sprint("not support engine type: ", config.Type))
 }
 
 
@@ -50,7 +50,7 @@ var _ EngineFactory = fileEngineFactory{}
 
 func (f fileEngineFactory) Gen(config Config) Engine {
 	flag := log.Ltime | log.Llongfile
-	out, err := os.Open(config.Path)
+	out, err := os.OpenFile(config.Path, os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
 	if err != nil {
 		panic(err)
 	}

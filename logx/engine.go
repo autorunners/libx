@@ -4,6 +4,10 @@ import (
 	"log"
 )
 
+const (
+	calldepth = 6
+)
+
 func newDefaultEngine() Engine {
 	return noneEngine{}
 }
@@ -28,7 +32,7 @@ type consoleEngine struct {
 var _ Engine = consoleEngine{}
 
 func (d consoleEngine) Output(message string) {
-	d.engine.Output(2, message)
+	d.engine.Output(calldepth, message)
 }
 
 
@@ -39,7 +43,7 @@ type fileEngine struct {
 var _ Engine = fileEngine{}
 
 func (d fileEngine) Output(message string) {
-	d.engine.Output(2, message)
+	d.engine.Output(calldepth, message)
 }
 
 

@@ -5,9 +5,6 @@ import (
 	"log"
 )
 
-type Config struct {
-	Logger logx.Config `yaml:"logger"`
-}
 
 func init() {
 	log.SetFlags(log.Llongfile | log.Ltime)
