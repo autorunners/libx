@@ -16,7 +16,6 @@ type MqttClient struct {
 	client mqtt.Client
 }
 
-
 func (m *MqttClient) Connect(c config.Config, connectHandler mqtt.OnConnectHandler, messageHandler mqtt.MessageHandler, connectLostHandler mqtt.ConnectionLostHandler) {
 	broker := fmt.Sprintf("%s://%s:%s", c.Protocol, c.Host, c.Port)
 	log.Println(broker)
@@ -52,6 +51,3 @@ func (m *MqttClient) Subscribe(topics []string, handler mqtt.MessageHandler) {
 		m.client.Subscribe(topic, 0, handler)
 	}
 }
-
-
-

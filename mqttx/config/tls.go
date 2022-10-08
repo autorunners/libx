@@ -45,6 +45,3 @@ func NewTLSConfig(certFiles CertFiles) *tls.Config {
 		Certificates: []tls.Certificate{cert},
 	}
 }
-
-
-

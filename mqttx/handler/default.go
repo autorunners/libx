@@ -17,6 +17,3 @@ func DefaultConnectHandler(client mqtt.Client) {
 func DefaultConnectLostHandler(client mqtt.Client, err error) {
 	log.Println("MQTT Connect lost: ", err)
 }
-
-
-

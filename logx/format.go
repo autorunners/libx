@@ -16,8 +16,8 @@ type Formatter interface {
 type defaultFormatter struct {
 	prefix string
 }
-var _ Formatter = defaultFormatter{}
 
+var _ Formatter = defaultFormatter{}
 
 func (f defaultFormatter) Format(prefix string, v ...interface{}) string {
 	return fmt.Sprintln(append(v, prefix)...)
@@ -32,4 +32,3 @@ func (j jsonFormatter) Format(prefix string, v ...interface{}) string {
 }
 
 var _ Formatter = jsonFormatter{}
-

@@ -25,7 +25,6 @@ type CertFiles struct {
 	KeyFile  string
 }
 
-
 func Parse(configFile string) Config {
 	var c Config
 	yamlFile, err := ioutil.ReadFile(configFile)
@@ -40,6 +39,3 @@ func Parse(configFile string) Config {
 	}
 	return c
 }
-
-
-

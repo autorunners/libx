@@ -29,6 +29,7 @@ type logger struct {
 	formater Formatter
 	engine   Engine
 }
+
 var _ Logger = logger{}
 
 func (d logger) Print(v ...interface{}) {
@@ -36,11 +37,11 @@ func (d logger) Print(v ...interface{}) {
 	d.engine.Output(message)
 }
 
-
 // complexLogger
 type complexLogger struct {
 	loggers []Logger
 }
+
 var _ Logger = complexLogger{}
 
 func (c complexLogger) Print(v ...interface{}) {
@@ -48,8 +49,3 @@ func (c complexLogger) Print(v ...interface{}) {
 		l.Print(v...)
 	}
 }
-
-
-
-
-

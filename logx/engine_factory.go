@@ -9,7 +9,7 @@ import (
 var (
 	engineFactorys = map[string]EngineFactory{
 		"console": consoleEngineFactory{},
-		"file": fileEngineFactory{},
+		"file":    fileEngineFactory{},
 	}
 )
 
@@ -22,7 +22,8 @@ type EngineFactory interface {
 }
 
 // engineFactory
-type engineFactory struct {}
+type engineFactory struct{}
+
 var _ EngineFactory = engineFactory{}
 
 func (e engineFactory) Gen(config Config) Engine {
@@ -33,8 +34,8 @@ func (e engineFactory) Gen(config Config) Engine {
 	panic(fmt.Sprint("not support engine type: ", config.Type))
 }
 
+type consoleEngineFactory struct{}
 
-type consoleEngineFactory struct {}
 var _ EngineFactory = consoleEngineFactory{}
 
 func (c consoleEngineFactory) Gen(config Config) Engine {
@@ -44,13 +45,13 @@ func (c consoleEngineFactory) Gen(config Config) Engine {
 	}
 }
 
+type fileEngineFactory struct{}
 
-type fileEngineFactory struct {}
 var _ EngineFactory = fileEngineFactory{}
 
 func (f fileEngineFactory) Gen(config Config) Engine {
 	flag := log.Ltime | log.Llongfile
-	out, err := os.OpenFile(config.Path, os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
+	out, err := os.OpenFile(config.Path, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		panic(err)
 	}
@@ -59,6 +60,3 @@ func (f fileEngineFactory) Gen(config Config) Engine {
 		engine: log.New(out, config.Prefix, flag),
 	}
 }
-
-
-

@@ -21,9 +21,9 @@ const (
 )
 
 var (
-	defaultLogx  Logx
+	defaultLogx Logx
 
-	prioritys    = map[string]Priority{
+	prioritys = map[string]Priority{
 		"alert":   LogAlert,
 		"err":     LogErr,
 		"warning": LogWarning,
@@ -36,7 +36,6 @@ var (
 		Type:   "console",
 		Path:   "logs",
 	}
-
 )
 
 func init() {
@@ -91,15 +90,14 @@ func initLogx(c Config) {
 
 	defaultLogx = logx{
 		logger: logger,
-		level:   priority,
+		level:  priority,
 	}
 	return
 }
 
-
 type logx struct {
 	logger Logger
-	level   Priority
+	level  Priority
 }
 
 func (d logx) Logger() Logger {
@@ -164,4 +162,3 @@ func (d logx) logf(level Priority, format string, v ...interface{}) {
 	msg := fmt.Sprintf(format, v...)
 	d.logger.Print(msg)
 }
-
