@@ -1,7 +1,7 @@
 /*
 From: https://github.com/dailymotion/allure-go/blob/c1bc79874bb49b81e0fd83e7bdf7a88ef36cb6b5/random.go
 */
-package utils
+package utilx
 
 import (
 	"crypto/rand"
