@@ -1,9 +1,5 @@
 package queuex
 
-import (
-	"log"
-)
-
 type Prio int
 
 const (
@@ -16,9 +12,9 @@ type queueState int
 
 const (
 	empty queueState = iota
+	normal
 	caution
 	warning
-	alarm
 	full
 )
 
@@ -74,20 +70,18 @@ func (p *plbQueue) Pop() (interface{}, error) {
 }
 
 func (p *plbQueue) push(i interface{}, prio Prio) error {
-	state := p.threshold.check(p.len + 1)
+	state := p.threshold.check(p.len)
 	switch state {
 	case full:
 		return ErrQueueFull
-	case alarm:
-		if prio != HighPrimary {
-			return ErrQueueAlarm
-		}
 	case warning:
-		if prio == LowerPriority {
+		if prio != HighPrimary {
 			return ErrQueueWarning
 		}
 	case caution:
-		log.Println(p.len)
+		if prio == LowerPriority {
+			return ErrQueueCaution
+		}
 	}
 	p.len++
 	p.lists[prio].Push(i)
@@ -106,13 +100,13 @@ func (p plbThreshold) check(num int) queueState {
 		return empty
 	}
 	if num < p.caution {
-		return caution
+		return normal
 	}
 	if num < p.warning {
-		return warning
+		return caution
 	}
 	if num < p.alarm {
-		return alarm
+		return warning
 	}
 	return full
 }

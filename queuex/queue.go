@@ -8,8 +8,8 @@ import (
 var (
 	ErrQueueFull    = errors.New("queue is full")
 	ErrQueueEmpty   = errors.New("queue is empty")
-	ErrQueueAlarm   = errors.New("queue is in alarm")
 	ErrQueueWarning = errors.New("queue is in warning")
+	ErrQueueCaution = errors.New("queue is in caution")
 
 	ErrQueueWrong = errors.New("queue is wrong: shold not exist")
 )
