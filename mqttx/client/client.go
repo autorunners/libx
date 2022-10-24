@@ -39,8 +39,9 @@ func (m *MqttClient) Connect(c config.Config, connectHandler mqtt.OnConnectHandl
 	client := mqtt.NewClient(opts)
 	token := client.Connect()
 	if token.Wait() && token.Error() != nil {
-		log.Println("connect error := ", token.Error())
-		panic(token.Error())
+		log.Println("=====> MQTT connect error := ", token.Error())
+		time.Sleep(time.Second)
+		m.Connect(c, connectHandler, messageHandler, connectLostHandler)
 	}
 	m.client = client
 	m.Subscribe(c.Topics, messageHandler)
