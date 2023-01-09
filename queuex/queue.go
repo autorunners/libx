@@ -3,6 +3,7 @@ package queuex
 import (
 	"container/list"
 	"errors"
+	"sync"
 )
 
 var (
@@ -26,21 +27,29 @@ type Queue interface {
 }
 
 func NewQueue() Queue {
-	return &queue{List: new(list.List)}
+	return &queue{
+		List: new(list.List),
+		Lock: &sync.Mutex{},
+	}
 }
 
 type queue struct {
 	List *list.List
+	Lock *sync.Mutex
 }
 
 var _ Queue = new(queue)
 
 func (q queue) Push(i interface{}) error {
+	defer q.Lock.Unlock()
+	q.Lock.Lock()
 	q.List.PushFront(i)
 	return nil
 }
 
 func (q queue) Pop() (interface{}, error) {
+	defer q.Lock.Unlock()
+	q.Lock.Lock()
 	if q.List.Len() <= 0 {
 		return nil, ErrQueueEmpty
 	}
